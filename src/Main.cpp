@@ -33,7 +33,7 @@ int main()
     for (int i{0}; i < imageWidth; ++i)
     {
       auto u{static_cast<double>(i) / (imageWidth - 1)};
-      auto v{static_cast<double>(i) / (imageHeight - 1)};
+      auto v{static_cast<double>(j) / (imageHeight - 1)};
       Ray r{origin, lowerLeftCorner + u * horizontal + v * vertical - origin};
       Color pixelColor{rayColor(r)};
       writeColor(std::cout, pixelColor);
