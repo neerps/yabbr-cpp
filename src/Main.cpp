@@ -1,5 +1,8 @@
 /*
 */
+#include "Color.h"
+#include "Vec3.h"
+
 #include <iostream>
 
 //
@@ -17,15 +20,8 @@ int main()
     std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
     for (int i{0}; i < imageWidth; ++i)
     {
-      auto r{static_cast<double>(i) / (imageWidth - 1)};
-      auto g{static_cast<double>(j) / (imageHeight - 1)};
-      auto b{0.25};
-
-      int ir{static_cast<int>(255.999 * r)};
-      int ig{static_cast<int>(255.999 * g)};
-      int ib{static_cast<int>(255.999 * b)};
-
-      std::cout << ir << ' ' << ig << ' ' << ib << '\n';
+      Color pixelColor{static_cast<double>(i) / (imageWidth - 1), static_cast<double>(j) / (imageHeight - 1), 0.25};
+      writeColor(std::cout, pixelColor);
     }
   }
   std::cerr << "\nDone.\n";
