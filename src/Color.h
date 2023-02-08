@@ -7,7 +7,7 @@
 #include <iostream>
 
 //
-bool hitSphere(const Point3& center, double radius, const Ray& r);
+double hitSphere(const Point3& center, double radius, const Ray& r);
 
 //
 void writeColor(std::ostream& out, const Color& pixelColor);
