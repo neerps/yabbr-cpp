@@ -1,8 +1,9 @@
 /*
 */
 #include "Color.h"
-#include "Ray.h"
-#include "Vec3.h"
+#include "HittableList.h"
+#include "Rtweekend.h"
+#include "Sphere.h"
 
 #include <iostream>
 
@@ -13,6 +14,11 @@ int main()
   const auto aspectRatio{16.0 / 9.0};
   const int imageWidth{400};
   const int imageHeight{static_cast<int>(imageWidth / aspectRatio)};
+
+  // World
+  HittableList world;
+  world.add(std::make_shared<Sphere>(Point3{0, 0, -1}, 0.5));
+  world.add(std::make_shared<Sphere>(Point3{0, -100.5, -1}, 100));
 
   // Camera
   auto viewportHeight{2.0};
@@ -35,7 +41,7 @@ int main()
       auto u{static_cast<double>(i) / (imageWidth - 1)};
       auto v{static_cast<double>(j) / (imageHeight - 1)};
       Ray r{origin, lowerLeftCorner + u * horizontal + v * vertical - origin};
-      Color pixelColor{rayColor(r)};
+      Color pixelColor{rayColor(r, world)};
       writeColor(std::cout, pixelColor);
     }
   }

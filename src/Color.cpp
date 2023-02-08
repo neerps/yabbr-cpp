@@ -2,8 +2,9 @@
 */
 
 #include "Color.h"
-#include "Ray.h"
-#include "Vec3.h"
+#include "HittableList.h"
+#include "Rtweekend.h"
+#include "Sphere.h"
 
 #include <iostream>
 
@@ -35,15 +36,14 @@ void writeColor(std::ostream& out, const Color& pixelColor)
 }
 
 //
-Color rayColor(const Ray& r)
+Color rayColor(const Ray& r, const Hittable& world)
 {
-  auto t{hitSphere(Point3{0, 0, -1}, 0.5, r)};
-  if (t > 0.0)
+  HitRecord rec;
+  if (world.hit(r, 0, infinity, rec))
   {
-    Vec3 N{unitVector(r.at(t) - Vec3{0, 0, -1})};
-    return 0.5 * Color{N.x() + 1, N.y() + 1, N.z() + 1};
+    return 0.5 * (rec.normal + Color{1, 1, 1});
   }
   Vec3 unitDirection{unitVector(r.direction())};
-  t = 0.5 * (unitDirection.y() + 1.0);
+  auto t{0.5 * (unitDirection.y() + 1.0)};
   return (1.0 - t) * Color { 1.0, 1.0, 1.0 } + t * Color{0.5, 0.7, 1.0};
 }
