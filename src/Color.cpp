@@ -28,11 +28,20 @@ double hitSphere(const Point3& center, double radius, const Ray& r)
 }
 
 //
-void writeColor(std::ostream& out, const Color& pixelColor)
+void writeColor(std::ostream& out, const Color& pixelColor, int samplesPerPixel)
 {
-  out << static_cast<int>(255.999 * pixelColor.x()) << ' '
-    << static_cast<int>(255.999 * pixelColor.y()) << ' '
-    << static_cast<int>(255.999 * pixelColor.z()) << '\n';
+  auto r{pixelColor.x()};
+  auto g{pixelColor.y()};
+  auto b{pixelColor.z()};
+
+  auto scale{1.0 / samplesPerPixel};
+  r *= scale;
+  g *= scale;
+  b *= scale;
+
+  out << static_cast<int>(256 * clamp(r, 0.0, 0.999)) << ' '
+    << static_cast<int>(256 * clamp(r, 0.0, 0.999)) << ' '
+    << static_cast<int>(256 * clamp(r, 0.0, 0.999)) << '\n';
 }
 
 //
