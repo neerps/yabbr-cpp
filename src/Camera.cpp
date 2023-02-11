@@ -12,10 +12,10 @@ Camera::Camera()
   auto viewportWidth{aspectRatio * viewportHeight};
   auto focalLength{1.0};
 
-  m_origin{Point3{0, 0, 0}};
-  m_horizontal{Vec3{viewportWidth, 0.0, 0.0}};
-  m_vertical{Vec3{0.0, viewportHeight, 0.0}};
-  m_lowerLeftCorner{m_origin - m_horizontal / 2 - m_vertical / 2 - Vec3{0, 0, focalLength}};
+  m_origin = Point3{0, 0, 0};
+  m_horizontal = Vec3{viewportWidth, 0.0, 0.0};
+  m_vertical = Vec3{0.0, viewportHeight, 0.0};
+  m_lowerLeftCorner = m_origin - m_horizontal / 2 - m_vertical / 2 - Vec3{0, 0, focalLength};
 }
 
 //
