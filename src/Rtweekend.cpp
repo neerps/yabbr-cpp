@@ -4,12 +4,12 @@
 
 //
 // Utility Functions
-inline double degreesToRadians(double degrees)
+double degreesToRadians(double degrees)
 {
   return degrees * pi / 180.0;
 }
 
-inline double clamp(double x, double min, double max)
+double clamp(double x, double min, double max)
 {
   if (x < min)
     return min;
