@@ -40,8 +40,8 @@ void writeColor(std::ostream& out, const Color& pixelColor, int samplesPerPixel)
   b *= scale;
 
   out << static_cast<int>(256 * clamp(r, 0.0, 0.999)) << ' '
-    << static_cast<int>(256 * clamp(r, 0.0, 0.999)) << ' '
-    << static_cast<int>(256 * clamp(r, 0.0, 0.999)) << '\n';
+    << static_cast<int>(256 * clamp(g, 0.0, 0.999)) << ' '
+    << static_cast<int>(256 * clamp(b, 0.0, 0.999)) << '\n';
 }
 
 //
