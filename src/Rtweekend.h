@@ -18,18 +18,8 @@ inline constexpr double infinity{std::numeric_limits<double>::infinity()};
 inline constexpr double pi{3.1415926535897932385};
 
 // Utility Functions
-inline double degreesToRadians(double degrees)
-{
-  return degrees * pi / 180.0;
-}
+inline double degreesToRadians(double degrees);
 
-inline double clamp(double x, double min, double max)
-{
-  if (x < min)
-    return min;
-  if (x > max)
-    return max;
-  return x;
-}
+inline double clamp(double x, double min, double max);
 
 #endif
