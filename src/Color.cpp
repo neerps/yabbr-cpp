@@ -3,6 +3,7 @@
 
 #include "Color.h"
 #include "HittableList.h"
+#include "RandomDoubleGen.h"
 #include "Rtweekend.h"
 #include "Sphere.h"
 
@@ -45,12 +46,19 @@ void writeColor(std::ostream& out, const Color& pixelColor, int samplesPerPixel)
 }
 
 //
-Color rayColor(const Ray& r, const Hittable& world)
+Color rayColor(const Ray& r, const Hittable& world, const RandomDoubleGen& rng, int depth)
 {
   HitRecord rec;
+
+  if (depth <= 0)
+  {
+    return Color{0, 0, 0};
+  }
+
   if (world.hit(r, 0, infinity, rec))
   {
-    return 0.5 * (rec.normal + Color{1, 1, 1});
+    Point3 target{rec.p + rec.normal + randomInUnitSphere(rng)};
+    return 0.5 * rayColor(Ray{rec.p, target - rec.p}, world, rng, depth - 1);
   }
   Vec3 unitDirection{unitVector(r.direction())};
   auto t{0.5 * (unitDirection.y() + 1.0)};

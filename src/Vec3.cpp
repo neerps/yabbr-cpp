@@ -1,5 +1,6 @@
 /*
 */
+#include "RandomDoubleGen.h"
 #include "Vec3.h"
 
 //
@@ -143,4 +144,30 @@ Vec3 cross(const Vec3& u, const Vec3& v)
 Vec3 unitVector(const Vec3& v)
 {
   return v / v.length();
+}
+
+//
+Vec3 rndVec3(const RandomDoubleGen& rng)
+{
+  return Vec3{rng.getRandom(0, 1), rng.getRandom(0, 1), rng.getRandom(0, 1)};
+}
+
+//
+Vec3 rndVec3(const RandomDoubleGen& rng, double min, double max)
+{
+  return Vec3{rng.getRandom(min, max), rng.getRandom(min, max), rng.getRandom(min, max)};
+}
+
+//
+Vec3 randomInUnitSphere(const RandomDoubleGen& rng)
+{
+  while(true)
+  {
+    auto p{rndVec3(rng, -1, 1)};
+    if (p.lengthSquared() >= 1)
+    {
+      continue;
+    }
+    return p;
+  }
 }

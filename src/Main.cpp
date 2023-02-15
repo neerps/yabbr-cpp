@@ -20,6 +20,7 @@ int main()
   const int imageWidth{400};
   const int imageHeight{static_cast<int>(imageWidth / aspectRatio)};
   const int samplesPerPixel{100};
+  const int maxDepth{50};
 
   // World
   HittableList world;
@@ -43,7 +44,7 @@ int main()
         auto u{(i + rng.getRandom(0, 1)) / (imageWidth - 1)};
         auto v{(j + rng.getRandom(0, 1)) / (imageHeight - 1)};
         Ray r{cam.getRay(u, v)};
-        pixelColor += rayColor(r, world);
+        pixelColor += rayColor(r, world, rng, maxDepth);
       }
       writeColor(std::cout, pixelColor, samplesPerPixel);
     }
