@@ -14,6 +14,7 @@ private:
   
 public:
   double getRandom(double lower, double upper);
+  double getRandom(double lower, double upper) const;
 };
 
 #endif
