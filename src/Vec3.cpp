@@ -1,6 +1,6 @@
 /*
 */
-#include "RandomDoubleGen.h"
+#include "RandomGen.h"
 #include "Vec3.h"
 
 //
@@ -147,19 +147,19 @@ Vec3 unitVector(const Vec3& v)
 }
 
 //
-Vec3 rndVec3(const RandomDoubleGen& rng)
+Vec3 rndVec3(const RandomGen& rng)
 {
   return Vec3{rng.getRandom(0, 1), rng.getRandom(0, 1), rng.getRandom(0, 1)};
 }
 
 //
-Vec3 rndVec3(const RandomDoubleGen& rng, double min, double max)
+Vec3 rndVec3(const RandomGen& rng, double min, double max)
 {
   return Vec3{rng.getRandom(min, max), rng.getRandom(min, max), rng.getRandom(min, max)};
 }
 
 //
-Vec3 randomInUnitSphere(const RandomDoubleGen& rng)
+Vec3 randomInUnitSphere(const RandomGen& rng)
 {
   while(true)
   {

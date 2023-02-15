@@ -4,7 +4,7 @@
 #define VEC3_H
 
 //
-#include "RandomDoubleGen.h"
+#include "RandomGen.h"
 #include <cmath>
 #include <iostream>
 
@@ -66,12 +66,12 @@ Vec3 cross(const Vec3& u, const Vec3& v);
 Vec3 unitVector(const Vec3& v);
 
 //
-Vec3 rndVec3(const RandomDoubleGen& rng);
+Vec3 rndVec3(const RandomGen& rng);
 
 //
-Vec3 rndVec3(const RandomDoubleGen& rng, double min, double max);
+Vec3 rndVec3(const RandomGen& rng, double min, double max);
 
 //
-Vec3 randomInUnitSphere(const RandomDoubleGen& rng);
+Vec3 randomInUnitSphere(const RandomGen& rng);
 
 #endif

@@ -3,7 +3,7 @@
 #include "Camera.h"
 #include "Color.h"
 #include "HittableList.h"
-#include "RandomDoubleGen.h"
+#include "RandomGen.h"
 #include "Rtweekend.h"
 #include "Sphere.h"
 
@@ -13,7 +13,7 @@
 int main()
 {
   //
-  RandomDoubleGen rng{};
+  RandomGen rng{};
 
   // Image
   const auto aspectRatio{16.0 / 9.0};

@@ -8,7 +8,7 @@
 #include <random>
 
 //
-class RandomDoubleGen {
+class RandomGen {
 private:
   static std::mt19937_64 s_mt64;
   

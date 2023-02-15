@@ -3,7 +3,7 @@
 
 #include "Color.h"
 #include "HittableList.h"
-#include "RandomDoubleGen.h"
+#include "RandomGen.h"
 #include "Rtweekend.h"
 #include "Sphere.h"
 
@@ -46,7 +46,7 @@ void writeColor(std::ostream& out, const Color& pixelColor, int samplesPerPixel)
 }
 
 //
-Color rayColor(const Ray& r, const Hittable& world, const RandomDoubleGen& rng, int depth)
+Color rayColor(const Ray& r, const Hittable& world, const RandomGen& rng, int depth)
 {
   HitRecord rec;
 
