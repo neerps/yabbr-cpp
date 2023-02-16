@@ -13,8 +13,8 @@ private:
   static std::mt19937_64 s_mt64;
   
 public:
-  double getRandom(double lower, double upper);
-  double getRandom(double lower, double upper) const;
+  double getRandomDouble(double lower, double upper);
+  double getRandomDouble(double lower, double upper) const;
 };
 
 #endif

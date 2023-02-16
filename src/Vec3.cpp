@@ -149,13 +149,13 @@ Vec3 unitVector(const Vec3& v)
 //
 Vec3 rndVec3(const RandomGen& rng)
 {
-  return Vec3{rng.getRandom(0, 1), rng.getRandom(0, 1), rng.getRandom(0, 1)};
+  return Vec3{rng.getRandomDouble(0, 1), rng.getRandomDouble(0, 1), rng.getRandomDouble(0, 1)};
 }
 
 //
 Vec3 rndVec3(const RandomGen& rng, double min, double max)
 {
-  return Vec3{rng.getRandom(min, max), rng.getRandom(min, max), rng.getRandom(min, max)};
+  return Vec3{rng.getRandomDouble(min, max), rng.getRandomDouble(min, max), rng.getRandomDouble(min, max)};
 }
 
 //
