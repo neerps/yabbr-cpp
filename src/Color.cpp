@@ -36,9 +36,9 @@ void writeColor(std::ostream& out, const Color& pixelColor, int samplesPerPixel)
   auto b{pixelColor.z()};
 
   auto scale{1.0 / samplesPerPixel};
-  r *= scale;
-  g *= scale;
-  b *= scale;
+  r = std::sqrt(scale * r);
+  g = std::sqrt(scale * g);
+  b = std::sqrt(scale * b);
 
   out << static_cast<int>(256 * clamp(r, 0.0, 0.999)) << ' '
     << static_cast<int>(256 * clamp(g, 0.0, 0.999)) << ' '
@@ -55,7 +55,7 @@ Color rayColor(const Ray& r, const Hittable& world, const RandomGen& rng, int de
     return Color{0, 0, 0};
   }
 
-  if (world.hit(r, 0, infinity, rec))
+  if (world.hit(r, 0.001, infinity, rec))
   {
     Point3 target{rec.p + rec.normal + randomInUnitSphere(rng)};
     return 0.5 * rayColor(Ray{rec.p, target - rec.p}, world, rng, depth - 1);
