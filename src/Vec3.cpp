@@ -171,3 +171,10 @@ Vec3 randomInUnitSphere(const RandomGen& rng)
     return p;
   }
 }
+
+//
+Vec3 randomUnitVector(const RandomGen& rng)
+{
+  return unitVector(randomInUnitSphere(rng));
+}
+

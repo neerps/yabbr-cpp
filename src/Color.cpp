@@ -57,7 +57,7 @@ Color rayColor(const Ray& r, const Hittable& world, const RandomGen& rng, int de
 
   if (world.hit(r, 0.001, infinity, rec))
   {
-    Point3 target{rec.p + rec.normal + randomInUnitSphere(rng)};
+    Point3 target{rec.p + rec.normal + randomUnitVector(rng)};
     return 0.5 * rayColor(Ray{rec.p, target - rec.p}, world, rng, depth - 1);
   }
   Vec3 unitDirection{unitVector(r.direction())};
