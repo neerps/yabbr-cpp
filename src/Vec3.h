@@ -75,6 +75,9 @@ Vec3 rndVec3(const RandomGen& rng, double min, double max);
 Vec3 randomInUnitSphere(const RandomGen& rng);
 
 //
+Vec3 randomInHemisphere(const Vec3& normal, const RandomGen& rng);
+
+//
 Vec3 randomUnitVector(const RandomGen& rng);
 
 #endif

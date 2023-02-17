@@ -173,8 +173,24 @@ Vec3 randomInUnitSphere(const RandomGen& rng)
 }
 
 //
+Vec3 randomInHemisphere(const Vec3& normal, const RandomGen& rng)
+{
+  Vec3 inUnitSphere{randomInUnitSphere(rng)};
+  if (dot(inUnitSphere, normal) > 0.0)
+  {
+    return inUnitSphere;
+  }
+  else
+  {
+    return -inUnitSphere;
+  }
+}
+
+//
 Vec3 randomUnitVector(const RandomGen& rng)
 {
   return unitVector(randomInUnitSphere(rng));
 }
+
+
 
