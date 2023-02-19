@@ -82,4 +82,7 @@ Vec3 randomInHemisphere(const Vec3& normal, const RandomGen& rng);
 //
 Vec3 randomUnitVector(const RandomGen& rng);
 
+//
+Vec3 reflect(const Vec3& v, const Vec3& n);
+
 #endif
