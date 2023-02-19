@@ -84,6 +84,13 @@ double Vec3::lengthSquared() const
   return m_e[0] * m_e[0] + m_e[1] * m_e[1] + m_e[2] * m_e[2];
 }
 
+//
+bool Vec3::nearZero() const
+{
+  constexpr auto s{1e-8};
+  return (fabs(m_e[0]) < s) && (fabs(m_e[1]) < s) && (fabs(m_e[2]) < s);
+}
+
 // Class utility functions
 std::ostream& operator<<(std::ostream& out, const Vec3& v)
 {
@@ -191,6 +198,3 @@ Vec3 randomUnitVector(const RandomGen& rng)
 {
   return unitVector(randomInUnitSphere(rng));
 }
-
-
-
