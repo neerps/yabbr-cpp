@@ -1,5 +1,6 @@
 /*
 */
+#include "Hittable.h"
 #include "Lambertian.h"
 
 //
