@@ -31,6 +31,8 @@ public:
 
   double length() const;
   double lengthSquared() const;
+
+  bool nearZero() const;
 };
 
 //
