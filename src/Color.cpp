@@ -59,8 +59,8 @@ Color rayColor(const Ray& r, const Hittable& world, const RandomGen& rng, int de
 
   if (world.hit(r, 0.001, infinity, rec))
   {
-    Ray scattered;
-    Color attentuation;
+    Ray scattered{};
+    Color attentuation{};
     if (rec.matPtr->scatter(r, rec, rng, attentuation, scattered))
     {
       return attentuation * rayColor(scattered, world, rng, depth - 1);
