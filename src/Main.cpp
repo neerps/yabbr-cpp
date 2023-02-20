@@ -3,6 +3,8 @@
 #include "Camera.h"
 #include "Color.h"
 #include "HittableList.h"
+#include "Lambertian.h"
+#include "Material.h"
 #include "RandomGen.h"
 #include "Rtweekend.h"
 #include "Sphere.h"
@@ -24,8 +26,12 @@ int main()
 
   // World
   HittableList world;
-  world.add(std::make_shared<Sphere>(Point3{0, 0, -1}, 0.5));
-  world.add(std::make_shared<Sphere>(Point3{0, -100.5, -1}, 100));
+
+  auto materialGround{std::make_shared<Lambertian>(Color{0.8, 0.8, 0.0})};
+  auto materialCenter{std::make_shared<Lambertian>(Color{0.7, 0.3, 0.3})};
+
+  world.add(std::make_shared<Sphere>(Point3{0, 0, -1}, 0.5, materialGround));
+  world.add(std::make_shared<Sphere>(Point3{0, -100.5, -1}, 100, materialCenter));
 
   // Camera
   Camera cam{};
