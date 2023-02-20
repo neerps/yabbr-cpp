@@ -9,7 +9,7 @@ Lambertian::Lambertian(const Color& a)
 {}
 
 //
-bool Lambertian::scatter(const Ray& rIn, 
+bool Lambertian::scatter([[maybe_unused]] const Ray& rIn, 
                          const HitRecord& rec, 
                          const RandomGen& rng, 
                          Color& attenuation, 
