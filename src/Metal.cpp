@@ -2,6 +2,7 @@
 */
 #include "Hittable.h"
 #include "Metal.h"
+#include "Rtweekend.h"
 
 //
 Metal::Metal(const Color& a)
@@ -10,7 +11,7 @@ Metal::Metal(const Color& a)
 
 //
 bool Metal::scatter(
-  const Ray& rIn, const HitRecord& rec, Color& attenuation, Ray& scattered
+  const Ray& rIn, const HitRecord& rec, const RandomGen& rng, Color& attenuation, Ray& scattered
 ) const
 {
   Vec3 reflected{reflect(unitVector(rIn.direction()), rec.normal)};
