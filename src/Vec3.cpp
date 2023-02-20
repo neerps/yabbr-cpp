@@ -198,3 +198,9 @@ Vec3 randomUnitVector(const RandomGen& rng)
 {
   return unitVector(randomInUnitSphere(rng));
 }
+
+//
+Vec3 reflect(const Vec3& v, const Vec3& n)
+{
+  return v - 2 * dot(v, n) * n;
+}
