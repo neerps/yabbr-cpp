@@ -1,5 +1,6 @@
 /*
 */
+#include "Hittable.h"
 #include "Sphere.h"
 #include "Vec3.h"
 
@@ -7,8 +8,8 @@
 Sphere::Sphere() {};
 
 //
-Sphere::Sphere(Point3 cen, double r)
-  : m_center{cen}, m_radius{r}
+Sphere::Sphere(Point3 cen, double r, std::shared_ptr<Material> m)
+  : m_center{cen}, m_radius{r}, m_matPtr{m}
 {};
 
 //
@@ -37,6 +38,7 @@ bool Sphere::hit(const Ray& r, double tMin, double tMax, HitRecord& rec) const
   rec.p = r.at(rec.t);
   Vec3 outwardNormal{(rec.p - m_center) / m_radius};
   rec.setFaceNormal(r, outwardNormal);
+  rec.matPtr = m_matPtr;
 
   return true;
 }
