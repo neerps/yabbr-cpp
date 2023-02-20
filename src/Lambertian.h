@@ -4,6 +4,7 @@
 #define LAMBERTIAN_H
 
 //
+#include "Hittable.h"
 #include "Material.h"
 #include "Rtweekend.h"
 
