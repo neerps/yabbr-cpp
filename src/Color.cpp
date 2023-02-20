@@ -2,7 +2,9 @@
 */
 
 #include "Color.h"
+#include "Hittable.h"
 #include "HittableList.h"
+#include "Material.h"
 #include "RandomGen.h"
 #include "Rtweekend.h"
 #include "Sphere.h"
@@ -57,8 +59,13 @@ Color rayColor(const Ray& r, const Hittable& world, const RandomGen& rng, int de
 
   if (world.hit(r, 0.001, infinity, rec))
   {
-    Point3 target{rec.p + randomInHemisphere(rec.normal, rng)};
-    return 0.5 * rayColor(Ray{rec.p, target - rec.p}, world, rng, depth - 1);
+    Ray scattered;
+    Color attentuation;
+    if (rec.matPtr->scatter(r, rec, rng, attentuation, scattered))
+    {
+      return attentuation * rayColor(scattered, world, rng, depth - 1);
+    }
+    return Color{0, 0, 0};
   }
   Vec3 unitDirection{unitVector(r.direction())};
   auto t{0.5 * (unitDirection.y() + 1.0)};
