@@ -1,6 +1,7 @@
 /*
 */
 #include "Hittable.h"
+#include "Material.h"
 #include "Sphere.h"
 #include "Vec3.h"
 

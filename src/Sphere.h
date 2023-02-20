@@ -5,6 +5,7 @@
 
 //
 #include "Hittable.h"
+#include "Material.h"
 #include "Vec3.h"
 
 //
