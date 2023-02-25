@@ -23,7 +23,6 @@ bool Lambertian::scatter([[maybe_unused]] const Ray& rIn,
     scatterDirection = rec.normal;
   }
 
-
   scattered = Ray{rec.p, scatterDirection};
   attenuation = m_albedo;
   return true;
