@@ -4,7 +4,9 @@
 #include "Color.h"
 #include "Hittable.h"
 #include "HittableList.h"
+#include "Lambertian.h"
 #include "Material.h"
+#include "Metal.h"
 #include "RandomGen.h"
 #include "Rtweekend.h"
 #include "Sphere.h"
@@ -50,7 +52,7 @@ void writeColor(std::ostream& out, const Color& pixelColor, int samplesPerPixel)
 //
 Color rayColor(const Ray& r, const Hittable& world, const RandomGen& rng, int depth)
 {
-  HitRecord rec;
+  HitRecord rec{};
 
   if (depth <= 0)
   {
@@ -67,7 +69,8 @@ Color rayColor(const Ray& r, const Hittable& world, const RandomGen& rng, int de
     }
     return Color{0, 0, 0};
   }
-  Vec3 unitDirection{unitVector(r.direction())};
-  auto t{0.5 * (unitDirection.y() + 1.0)};
-  return (1.0 - t) * Color { 1.0, 1.0, 1.0 } + t * Color{0.5, 0.7, 1.0};
+  //Vec3 unitDirection{unitVector(r.direction())};
+  //auto t{0.5 * (unitDirection.y() + 1.0)};
+  //return (1.0 - t) * Color{1.0, 1.0, 1.0} + t * Color{0.5, 0.7, 1.0};
+  return Color{1, 1, 1};
 }
