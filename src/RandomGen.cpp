@@ -15,12 +15,12 @@ std::mt19937_64 RandomGen::s_mt64{static_cast<std::mt19937_64::result_type>(
 double RandomGen::getRandomDouble(double lower, double upper)
 {
   std::uniform_real_distribution<double> dicey(lower, upper);
-  return dicey(s_mt64);
+  return dicey(RandomGen::s_mt64);
 }
 
 //
 double RandomGen::getRandomDouble(double lower, double upper) const
 {
   std::uniform_real_distribution<double> dicey(lower, upper);
-  return dicey(s_mt64);
+  return dicey(RandomGen::s_mt64);
 }
