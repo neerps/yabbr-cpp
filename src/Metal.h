@@ -11,7 +11,7 @@
 class Metal : public Material
 {
 public:
-  Color m_albedo;
+  Color m_albedo{};
 
 public:
   Metal(const Color& a);

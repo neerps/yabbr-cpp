@@ -26,7 +26,7 @@ void HittableList::add(std::shared_ptr<Hittable> object)
 //
 bool HittableList::hit(const Ray& r, double tMin, double tMax, HitRecord& rec) const
 {
-  HitRecord tempRec;
+  HitRecord tempRec{};
   bool hitAnything{false};
   auto closestSoFar{tMax};
 
