@@ -17,5 +17,5 @@ bool Metal::scatter(
   Vec3 reflected{reflect(unitVector(rIn.direction()), rec.normal)};
   scattered = Ray(rec.p, reflected);
   attenuation = m_albedo;
-  return {dot(scattered.direction(), rec.normal) > 0};
+  return dot(scattered.direction(), rec.normal) > 0;
 }
