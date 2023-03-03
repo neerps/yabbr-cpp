@@ -171,11 +171,10 @@ Vec3 randomInUnitSphere(const RandomGen& rng)
   while(true)
   {
     auto p{rndVec3(rng, -1, 1)};
-    if (p.lengthSquared() >= 1)
+    if (p.lengthSquared() < 1)
     {
-      continue;
+      return p;
     }
-    return p;
   }
 }
 
