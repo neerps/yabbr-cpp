@@ -1,6 +1,6 @@
 /*
 */
-#ifndef LAMBERITAN_H
+#ifndef LAMBERTIAN_H
 #define LAMBERTIAN_H
 
 //
