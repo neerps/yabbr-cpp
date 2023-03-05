@@ -10,13 +10,12 @@ Lambertian::Lambertian(const Color& a)
 
 //
 bool Lambertian::scatter([[maybe_unused]] const Ray& rIn, 
-                         const HitRecord& rec, 
-                         const RandomGen& rng, 
+                         const HitRecord& rec,
                          Color& attenuation, 
                          Ray& scattered
 ) const 
 {
-  auto scatterDirection{rec.normal + randomUnitVector(rng)};
+  auto scatterDirection{rec.normal + randomUnitVector()};
 
   if (scatterDirection.nearZero())
   {

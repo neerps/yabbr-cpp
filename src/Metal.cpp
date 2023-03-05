@@ -11,7 +11,7 @@ Metal::Metal(const Color& a)
 
 //
 bool Metal::scatter(
-  const Ray& rIn, const HitRecord& rec,  [[maybe_unused]] const RandomGen& rng, Color& attenuation, Ray& scattered
+  const Ray& rIn, const HitRecord& rec, Color& attenuation, Ray& scattered
 ) const
 {
   Vec3 reflected{reflect(unitVector(rIn.direction()), rec.normal)};
