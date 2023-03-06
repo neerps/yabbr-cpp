@@ -15,9 +15,6 @@
 //
 int main()
 {
-  //
-  RandomGen rng{};
-
   // Image
   const auto aspectRatio{16.0 / 9.0};
   const int imageWidth{400};
@@ -48,10 +45,10 @@ int main()
       Color pixelColor{0, 0, 0};
       for (int s{0}; s < samplesPerPixel; ++s)
       {
-        auto u{(i + rng.getRandomDouble(0, 1)) / (imageWidth - 1)};
-        auto v{(j + rng.getRandomDouble(0, 1)) / (imageHeight - 1)};
+        auto u{(i + RandomGen::getRandomDouble(0, 1)) / (imageWidth - 1)};
+        auto v{(j + RandomGen::getRandomDouble(0, 1)) / (imageHeight - 1)};
         Ray r{cam.getRay(u, v)};
-        pixelColor += rayColor(r, world, rng, maxDepth);
+        pixelColor += rayColor(r, world, maxDepth);
       }
       writeColor(std::cout, pixelColor, samplesPerPixel);
     }

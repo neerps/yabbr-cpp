@@ -50,7 +50,7 @@ void writeColor(std::ostream& out, const Color& pixelColor, int samplesPerPixel)
 }
 
 //
-Color rayColor(const Ray& r, const Hittable& world, const RandomGen& rng, int depth)
+Color rayColor(const Ray& r, const Hittable& world, int depth)
 {
   HitRecord rec{};
 
@@ -63,9 +63,9 @@ Color rayColor(const Ray& r, const Hittable& world, const RandomGen& rng, int de
   {
     Ray scattered{};
     Color attentuation{};
-    if (rec.matPtr->scatter(r, rec, rng, attentuation, scattered))
+    if (rec.matPtr->scatter(r, rec, attentuation, scattered))
     {
-      return attentuation * rayColor(scattered, world, rng, depth - 1);
+      return attentuation * rayColor(scattered, world, depth - 1);
     }
     return Color{0, 0, 0};
   }
