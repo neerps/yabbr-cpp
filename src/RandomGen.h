@@ -1,6 +1,9 @@
 /*
   Mersenne-twsiter based random generator
   and corresponding methods to get random values
+
+  Current version is based on code from
+  https://www.learncpp.com/cpp-tutorial/generating-random-numbers-using-mersenne-twister/
 */
 #ifndef RANDOM_DOUBLE_GEN_H
 #define RANDOM_DOUBLE_GEN_H
