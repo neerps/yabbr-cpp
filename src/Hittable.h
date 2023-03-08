@@ -26,11 +26,26 @@ struct HitRecord
 };
 
 //
+struct HitResult
+{
+  bool isHit{};
+  HitRecord rec{};
+};
+
+//
+struct ScatterResult
+{
+  bool isScattered{};
+  Ray scattered{};
+  Color attentuation{};
+};
+
+//
 class Hittable
 {
 public:
   virtual ~Hittable() = default;
-  virtual bool hit(const Ray& r, double tMin, double tMax, HitRecord& rec) const = 0;
+  virtual HitResult hit(const Ray& r, double tMin, double tMax) const = 0;
 };
 
 #endif

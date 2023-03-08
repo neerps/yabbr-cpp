@@ -3,9 +3,11 @@
 #ifndef METAL_H
 #define METAL_H
 
-#include "Hittable.h"
 #include "Material.h"
 #include "Rtweekend.h"
+
+//
+struct HitRecord;
 
 //
 class Metal : public Material
@@ -16,8 +18,8 @@ public:
 public:
   Metal(const Color& a);
 
-  virtual bool scatter(
-    const Ray& rIn, const HitRecord& rec, Color& attenuation, Ray& scattered
+  virtual ScatterResult scatter(
+    const Ray& rIn, const HitRecord& rec
   ) const override;
 };
 

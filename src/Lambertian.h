@@ -4,9 +4,11 @@
 #define LAMBERTIAN_H
 
 //
-#include "Hittable.h"
 #include "Material.h"
 #include "Rtweekend.h"
+
+//
+struct HitRecord;
 
 //
 class Lambertian : public Material
@@ -17,8 +19,8 @@ public:
 public:
   Lambertian(const Color& a);
 
-  virtual bool scatter(
-    const Ray& rIn, const HitRecord& rec, Color& attenuation, Ray& scattered
+  virtual ScatterResult scatter(
+    const Ray& rIn, const HitRecord& rec
   ) const override;
 
 };

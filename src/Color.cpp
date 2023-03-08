@@ -63,21 +63,17 @@ Color rayColor(const Ray& r, const Hittable& world, int depth)
   if (depth <= 0)
     return Color{0, 0, 0};
 
-  HitRecord rec{};
-  if (world.hit(r, 0.001, infinity, rec))
-  {
-    Ray scattered{};
-    Color attentuation{};
-    if (rec.matPtr->scatter(r, rec, attentuation, scattered))
-    {
-      Color colorToReturn{attentuation * rayColor(scattered, world, depth - 1)};
-      return colorToReturn;
-    }
-    else
-      return attentuation;
-  }
+  HitResult resRec{world.hit(r, 0.001, infinity)};
+  if (!resRec.isHit)
+    return backgroundRayColor(r);
   else
   {
-    return backgroundRayColor(r);
+    ScatterResult scatterRes{resRec.rec.matPtr->scatter(r, resRec.rec)};
+    if (!scatterRes.isScattered)
+      return Color{0, 0, 0};
+    else
+    {
+      return scatterRes.attentuation * rayColor(scatterRes.scattered, world, depth - 1);
+    }
   }
 }
