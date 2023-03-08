@@ -4,18 +4,22 @@
 #define METAL_H
 
 #include "Material.h"
+#include "Rtweekend.h"
+
+//
+struct HitRecord;
 
 //
 class Metal : public Material
 {
 public:
-  Color m_albedo;
+  Color m_albedo{};
 
 public:
   Metal(const Color& a);
 
-  virtual bool scatter(
-    const Ray& rIn, const HitRecord& rec, const RandomGen& rng, Color& attenuation, Ray& scattered
+  virtual ScatterResult scatter(
+    const Ray& rIn, const HitRecord& rec
   ) const override;
 };
 

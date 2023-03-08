@@ -112,7 +112,7 @@ Vec3 operator-(const Vec3& u, const Vec3& v)
 //
 Vec3 operator*(const Vec3& u, const Vec3& v)
 {
-  return {u.m_e[0] * v.m_e[0], u.m_e[1] * v.m_e[1], v.m_e[2] * v.m_e[2]};
+  return {u.m_e[0] * v.m_e[0], u.m_e[1] * v.m_e[1], u.m_e[2] * v.m_e[2]};
 }
 
 //
@@ -154,35 +154,34 @@ Vec3 unitVector(const Vec3& v)
 }
 
 //
-Vec3 rndVec3(const RandomGen& rng)
+Vec3 rndVec3()
 {
-  return Vec3{rng.getRandomDouble(0, 1), rng.getRandomDouble(0, 1), rng.getRandomDouble(0, 1)};
+  return Vec3{RandomGen::getRandomDouble(0, 1), RandomGen::getRandomDouble(0, 1), RandomGen::getRandomDouble(0, 1)};
 }
 
 //
-Vec3 rndVec3(const RandomGen& rng, double min, double max)
+Vec3 rndVec3(double min, double max)
 {
-  return Vec3{rng.getRandomDouble(min, max), rng.getRandomDouble(min, max), rng.getRandomDouble(min, max)};
+  return Vec3{RandomGen::getRandomDouble(min, max), RandomGen::getRandomDouble(min, max), RandomGen::getRandomDouble(min, max)};
 }
 
 //
-Vec3 randomInUnitSphere(const RandomGen& rng)
+Vec3 randomInUnitSphere()
 {
-  while(true)
+  while (true)
   {
-    auto p{rndVec3(rng, -1, 1)};
-    if (p.lengthSquared() >= 1)
+    auto p{rndVec3(-1, 1)};
+    if (p.lengthSquared() < 1)
     {
-      continue;
+      return p;
     }
-    return p;
   }
 }
 
 //
-Vec3 randomInHemisphere(const Vec3& normal, const RandomGen& rng)
+Vec3 randomInHemisphere(const Vec3& normal)
 {
-  Vec3 inUnitSphere{randomInUnitSphere(rng)};
+  Vec3 inUnitSphere{randomInUnitSphere()};
   if (dot(inUnitSphere, normal) > 0.0)
   {
     return inUnitSphere;
@@ -194,9 +193,9 @@ Vec3 randomInHemisphere(const Vec3& normal, const RandomGen& rng)
 }
 
 //
-Vec3 randomUnitVector(const RandomGen& rng)
+Vec3 randomUnitVector()
 {
-  return unitVector(randomInUnitSphere(rng));
+  return unitVector(randomInUnitSphere());
 }
 
 //

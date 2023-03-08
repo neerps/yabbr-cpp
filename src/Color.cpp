@@ -4,7 +4,9 @@
 #include "Color.h"
 #include "Hittable.h"
 #include "HittableList.h"
+#include "Lambertian.h"
 #include "Material.h"
+#include "Metal.h"
 #include "RandomGen.h"
 #include "Rtweekend.h"
 #include "Sphere.h"
@@ -48,26 +50,30 @@ void writeColor(std::ostream& out, const Color& pixelColor, int samplesPerPixel)
 }
 
 //
-Color rayColor(const Ray& r, const Hittable& world, const RandomGen& rng, int depth)
+Color backgroundRayColor(const Ray& r)
 {
-  HitRecord rec;
-
-  if (depth <= 0)
-  {
-    return Color{0, 0, 0};
-  }
-
-  if (world.hit(r, 0.001, infinity, rec))
-  {
-    Ray scattered{};
-    Color attentuation{};
-    if (rec.matPtr->scatter(r, rec, rng, attentuation, scattered))
-    {
-      return attentuation * rayColor(scattered, world, rng, depth - 1);
-    }
-    return Color{0, 0, 0};
-  }
   Vec3 unitDirection{unitVector(r.direction())};
   auto t{0.5 * (unitDirection.y() + 1.0)};
-  return (1.0 - t) * Color { 1.0, 1.0, 1.0 } + t * Color{0.5, 0.7, 1.0};
+  return (1.0 - t) * Color{1.0, 1.0, 1.0} + t * Color{0.5, 0.7, 1.0};
+}
+
+//
+Color rayColor(const Ray& r, const Hittable& world, int depth)
+{
+  if (depth <= 0)
+    return Color{0, 0, 0};
+
+  HitResult resRec{world.hit(r, 0.001, infinity)};
+  if (!resRec.isHit)
+    return backgroundRayColor(r);
+  else
+  {
+    ScatterResult scatterRes{resRec.rec.matPtr->scatter(r, resRec.rec)};
+    if (!scatterRes.isScattered)
+      return Color{0, 0, 0};
+    else
+    {
+      return scatterRes.attentuation * rayColor(scatterRes.scattered, world, depth - 1);
+    }
+  }
 }

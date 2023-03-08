@@ -9,23 +9,21 @@ Lambertian::Lambertian(const Color& a)
 {}
 
 //
-bool Lambertian::scatter([[maybe_unused]] const Ray& rIn, 
-                         const HitRecord& rec, 
-                         const RandomGen& rng, 
-                         Color& attenuation, 
-                         Ray& scattered
+ScatterResult Lambertian::scatter([[maybe_unused]] const Ray& rIn, 
+                         const HitRecord& rec
 ) const 
 {
-  auto scatterDirection{rec.normal + randomUnitVector(rng)};
+  ScatterResult res{};
+  auto scatterDirection{rec.normal + randomUnitVector()};
 
   if (scatterDirection.nearZero())
   {
     scatterDirection = rec.normal;
   }
 
+  res.isScattered = true;
+  res.scattered = Ray{rec.p, scatterDirection};
+  res.attentuation = m_albedo;
 
-  scattered = Ray{rec.p, scatterDirection};
-  attenuation = m_albedo;
-  return true;
+  return res;
 }
-

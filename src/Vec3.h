@@ -68,19 +68,22 @@ Vec3 cross(const Vec3& u, const Vec3& v);
 Vec3 unitVector(const Vec3& v);
 
 //
-Vec3 rndVec3(const RandomGen& rng);
+Vec3 rndVec3();
 
 //
-Vec3 rndVec3(const RandomGen& rng, double min, double max);
+Vec3 rndVec3(double min, double max);
 
 //
-Vec3 randomInUnitSphere(const RandomGen& rng);
+Vec3 randomInUnitSphere();
 
 //
-Vec3 randomInHemisphere(const Vec3& normal, const RandomGen& rng);
+Vec3 randomInHemisphere(const Vec3& normal);
 
 //
-Vec3 randomUnitVector(const RandomGen& rng);
+Vec3 randomUnitVector();
+
+//
+Vec3 reflect(const Vec3& v, const Vec3& n);
 
 //
 Vec3 reflect(const Vec3& v, const Vec3& n);
