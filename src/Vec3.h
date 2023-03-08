@@ -85,7 +85,4 @@ Vec3 randomUnitVector();
 //
 Vec3 reflect(const Vec3& v, const Vec3& n);
 
-//
-Vec3 reflect(const Vec3& v, const Vec3& n);
-
 #endif
