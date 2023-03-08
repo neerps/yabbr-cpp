@@ -33,6 +33,14 @@ struct HitResult
 };
 
 //
+struct ScatterResult
+{
+  bool isScattered{};
+  Ray scattered{};
+  Color attentuation{};
+};
+
+//
 class Hittable
 {
 public:
