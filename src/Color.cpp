@@ -63,8 +63,7 @@ Color rayColor(const Ray& r, const Hittable& world, int depth)
   if (depth <= 0)
     return Color{0, 0, 0};
 
-  HitResult resRec{};
-  resRec = world.hit(r, 0.001, infinity);
+  HitResult resRec{world.hit(r, 0.001, infinity)};
   if (resRec.isHit)
   {
     ScatterResult scatterRes{resRec.rec.matPtr->scatter(r, resRec.rec)};
