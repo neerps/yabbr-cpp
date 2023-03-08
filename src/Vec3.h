@@ -85,4 +85,7 @@ Vec3 randomUnitVector();
 //
 Vec3 reflect(const Vec3& v, const Vec3& n);
 
+//
+Vec3 refract(const Vec3& uv, const Vec3& n, double etai_over_etat);
+
 #endif
