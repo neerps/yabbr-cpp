@@ -22,7 +22,7 @@ public:
   void clear();
   void add(std::shared_ptr<Hittable> object);
 
-  virtual bool hit(const Ray& r, double tMin, double tMax, HitRecord& rec) const override;
+  virtual HitResult hit(const Ray& r, double tMin, double tMax) const override;
 };
 
 #endif

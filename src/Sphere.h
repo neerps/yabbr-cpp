@@ -20,7 +20,7 @@ public:
   Sphere();
   Sphere(Point3 cen, double r, std::shared_ptr<Material> m);
 
-  virtual bool hit(const Ray& r, double tMin, double tMax, HitRecord& rec) const override;
+  virtual HitResult hit(const Ray& r, double tMin, double tMax) const override;
 
 };
 
