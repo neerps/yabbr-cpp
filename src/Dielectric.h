@@ -17,6 +17,9 @@ public:
   Dielectric(double index_of_refraction);
 
   virtual ScatterResult scatter(const Ray& rIn, const HitRecord& rec) const override;
+
+private:
+  static double reflectance(double cosine, double refIdx);
 };
 
 #endif

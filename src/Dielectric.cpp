@@ -21,7 +21,7 @@ ScatterResult Dielectric::scatter(const Ray& rIn, const HitRecord& rec) const
   bool cannotRefract{refractionRatio * sinTheta > 1.0};
   Vec3 direction{};
 
-  if (cannotRefract)
+  if (cannotRefract || reflectance(cosTheta, refractionRatio) > RandomGen::getRandomDouble(0, 1))
     direction = reflect(unitDirection, rec.normal);
   else
     direction = refract(unitDirection, rec.normal, refractionRatio);
@@ -30,4 +30,13 @@ ScatterResult Dielectric::scatter(const Ray& rIn, const HitRecord& rec) const
   res.isScattered = true;
 
   return res;
+}
+
+//
+double Dielectric::reflectance(double cosine, double refIdx)
+{
+  // Shlick's approximation
+  auto r0{(1 - refIdx) / (1 + refIdx)};
+  r0 = r0 * r0;
+  return r0 + (1 - r0) * pow((1 - cosine), 5);
 }
