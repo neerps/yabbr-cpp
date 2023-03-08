@@ -168,7 +168,7 @@ Vec3 rndVec3(double min, double max)
 //
 Vec3 randomInUnitSphere()
 {
-  while(true)
+  while (true)
   {
     auto p{rndVec3(-1, 1)};
     if (p.lengthSquared() < 1)
