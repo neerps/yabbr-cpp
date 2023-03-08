@@ -16,11 +16,11 @@
 int main()
 {
   // Image
-  const auto aspectRatio{16.0 / 9.0};
-  const int imageWidth{400};
-  const int imageHeight{static_cast<int>(imageWidth / aspectRatio)};
-  const int samplesPerPixel{100};
-  const int maxDepth{50};
+  constexpr auto aspectRatio{16.0 / 9.0};
+  constexpr int imageWidth{400};
+  constexpr int imageHeight{static_cast<int>(imageWidth / aspectRatio)};
+  constexpr int samplesPerPixel{100};
+  constexpr int maxDepth{50};
 
   // World
   HittableList world{};
