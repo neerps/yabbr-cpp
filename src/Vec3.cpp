@@ -112,7 +112,7 @@ Vec3 operator-(const Vec3& u, const Vec3& v)
 //
 Vec3 operator*(const Vec3& u, const Vec3& v)
 {
-  return {u.m_e[0] * v.m_e[0], u.m_e[1] * v.m_e[1], v.m_e[2] * v.m_e[2]};
+  return {u.m_e[0] * v.m_e[0], u.m_e[1] * v.m_e[1], u.m_e[2] * v.m_e[2]};
 }
 
 //
