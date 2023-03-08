@@ -14,9 +14,10 @@ class Metal : public Material
 {
 public:
   Color m_albedo{};
+  double m_fuzz{};
 
 public:
-  Metal(const Color& a);
+  Metal(const Color& a, double f);
 
   virtual ScatterResult scatter(
     const Ray& rIn, const HitRecord& rec
