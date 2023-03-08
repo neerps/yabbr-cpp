@@ -8,9 +8,6 @@
 #include <iostream>
 
 //
-double hitSphere(const Point3& center, double radius, const Ray& r);
-
-//
 void writeColor(std::ostream& out, const Color& pixelColor, int samplesPerPixel);
 
 //

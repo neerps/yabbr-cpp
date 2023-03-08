@@ -14,25 +14,6 @@
 #include <iostream>
 
 //
-double hitSphere(const Point3& center, double radius, const Ray& r)
-{
-  Vec3 oc{r.origin() - center};
-  auto a{r.direction().lengthSquared()};
-  auto halfB{dot(oc, r.direction())};
-  auto c{oc.lengthSquared() - radius * radius};
-  auto discriminant{halfB * halfB - a * c};
-
-  if (discriminant < 0)
-  {
-    return -1.0;
-  }
-  else
-  {
-    return (-halfB - std::sqrt(discriminant)) / a;
-  }
-}
-
-//
 void writeColor(std::ostream& out, const Color& pixelColor, int samplesPerPixel)
 {
   auto r{pixelColor.x()};
