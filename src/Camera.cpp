@@ -5,12 +5,14 @@
 #include "Rtweekend.h"
 
 //
-Camera::Camera() 
+Camera::Camera(double vFov, double aspectRatio) 
 {
-  auto aspectRatio{16.0 / 9.0};
-  auto viewportHeight{2.0};
+  auto theta{degreesToRadians(vFov)};
+  auto h{tan(theta/2)};
+  auto viewportHeight{2.0 * h};
   auto viewportWidth{aspectRatio * viewportHeight};
-  auto focalLength{1.0};
+
+  constexpr auto focalLength{1.0};
 
   m_origin = Point3{0, 0, 0};
   m_horizontal = Vec3{viewportWidth, 0.0, 0.0};

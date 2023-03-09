@@ -14,7 +14,8 @@ private:
   Vec3 m_vertical{};
 
 public:
-  Camera();
+  // vfov - vertical field of view in degrees
+  Camera(double vFov, double aspectRatio);
 
   Ray getRay(double u, double v) const;
 
