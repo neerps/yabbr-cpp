@@ -15,9 +15,15 @@ private:
 
 public:
   // vfov - vertical field of view in degrees
-  Camera(double vFov, double aspectRatio);
+  Camera(
+    Point3 lookFrom,
+    Point3 lookAt,
+    Vec3 vUp,
+    double vFov, 
+    double aspectRatio
+  );
 
-  Ray getRay(double u, double v) const;
+  Ray getRay(double s, double t) const;
 
 };
 

@@ -5,23 +5,31 @@
 #include "Rtweekend.h"
 
 //
-Camera::Camera(double vFov, double aspectRatio) 
+Camera::Camera(
+  Point3 lookFrom,
+  Point3 lookAt,
+  Vec3 vUp,
+  double vFov, 
+  double aspectRatio
+) 
 {
   auto theta{degreesToRadians(vFov)};
   auto h{tan(theta/2)};
   auto viewportHeight{2.0 * h};
   auto viewportWidth{aspectRatio * viewportHeight};
 
-  constexpr auto focalLength{1.0};
+  auto w{unitVector(lookFrom - lookAt)};
+  auto u{unitVector(cross(vUp, w))};
+  auto v{cross(w, u)};
 
-  m_origin = Point3{0, 0, 0};
-  m_horizontal = Vec3{viewportWidth, 0.0, 0.0};
-  m_vertical = Vec3{0.0, viewportHeight, 0.0};
-  m_lowerLeftCorner = m_origin - m_horizontal / 2 - m_vertical / 2 - Vec3{0, 0, focalLength};
+  m_origin = lookFrom;
+  m_horizontal = viewportWidth * u;
+  m_vertical = viewportHeight * v;
+  m_lowerLeftCorner = m_origin - m_horizontal / 2 - m_vertical / 2 - w;
 }
 
 //
-Ray Camera::getRay(double u, double v) const 
+Ray Camera::getRay(double s, double t) const 
 {
-  return Ray{m_origin, m_lowerLeftCorner + u * m_horizontal + v * m_vertical - m_origin};
+  return Ray{m_origin, m_lowerLeftCorner + s * m_horizontal + t * m_vertical - m_origin};
 }

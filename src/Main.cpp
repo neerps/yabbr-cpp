@@ -24,17 +24,21 @@ int main()
   constexpr int maxDepth{50};
 
   // World
-  const auto R{cos(pi / 4)};
   HittableList world{};
 
-  auto materialLeft{std::make_shared<Lambertian>(Color{0, 0, 1})};
-  auto materialRight{std::make_shared<Lambertian>(Color{1, 0, 0})};
+  auto materialGround{std::make_shared<Lambertian>(Color{0.8, 0.8, 0.0})};
+  auto materialCenter{std::make_shared<Lambertian>(Color{0.1, 0.2, 0.5})};
+  auto materialLeft{std::make_shared<Dielectric>(1.5)};
+  auto materialRight{std::make_shared<Metal>(Color{0.8, 0.6, 0.2}, 0.0)};
 
-  world.add(std::make_shared<Sphere>(Point3{-R, 0, -1}, R, materialLeft));
-  world.add(std::make_shared<Sphere>(Point3{R, 0, -1}, R, materialRight));
+  world.add(std::make_shared<Sphere>(Point3{0.0, -100.5, -1.0}, 100.0, materialGround));
+  world.add(std::make_shared<Sphere>(Point3{0.0, 0.0, -1.0}, 0.5, materialCenter));
+  world.add(std::make_shared<Sphere>(Point3{-1.0, 0.0, -1.0}, 0.5, materialLeft));
+  world.add(std::make_shared<Sphere>(Point3{-1.0, 0.0, -1.0}, -0.45, materialLeft));
+  world.add(std::make_shared<Sphere>(Point3{1.0, 0.0, -1.0}, 0.5, materialRight));
 
   // Camera
-  Camera cam{90.0, aspectRatio};
+  Camera cam{Point3{-2, 2, 1}, Point3{0, 0, -1}, Vec3{0, 1, 0}, 90, aspectRatio};
 
   // Render
   std::cout << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";
