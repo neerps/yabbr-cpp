@@ -47,14 +47,10 @@ Color rayColor(const Ray& r, const Hittable& world, int depth)
   HitResult resRec{world.hit(r, 0.001, infinity)};
   if (!resRec.isHit)
     return backgroundRayColor(r);
-  else
-  {
-    ScatterResult scatterRes{resRec.rec.matPtr->scatter(r, resRec.rec)};
-    if (!scatterRes.isScattered)
-      return Color{0, 0, 0};
-    else
-    {
-      return scatterRes.attentuation * rayColor(scatterRes.scattered, world, depth - 1);
-    }
-  }
+
+  ScatterResult scatterRes{resRec.rec.matPtr->scatter(r, resRec.rec)};
+  if (!scatterRes.isScattered)
+    return Color{0, 0, 0};
+
+  return scatterRes.attentuation * rayColor(scatterRes.scattered, world, depth - 1);
 }
