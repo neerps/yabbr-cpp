@@ -31,14 +31,6 @@ void writeColor(std::ostream& out, const Color& pixelColor, int samplesPerPixel)
 }
 
 //
-Color backgroundRayColor(const Ray& r)
-{
-  Vec3 unitDirection{unitVector(r.direction())};
-  auto t{0.5 * (unitDirection.y() + 1.0)};
-  return (1.0 - t) * Color{1.0, 1.0, 1.0} + t * Color{0.5, 0.7, 1.0};
-}
-
-//
 Color rayColor(const Ray& r, const Hittable& world, int depth)
 {
   if (depth <= 0)
@@ -46,7 +38,11 @@ Color rayColor(const Ray& r, const Hittable& world, int depth)
 
   HitResult resRec{world.hit(r, 0.001, infinity)};
   if (!resRec.isHit)
-    return backgroundRayColor(r);
+  {
+    Vec3 unitDirection{unitVector(r.direction())};
+    auto t{0.5 * (unitDirection.y() + 1.0)};
+    return (1.0 - t) * Color{1.0, 1.0, 1.0} + t * Color{0.5, 0.7, 1.0};
+  }
 
   ScatterResult scatterRes{resRec.rec.matPtr->scatter(r, resRec.rec)};
   if (!scatterRes.isScattered)
