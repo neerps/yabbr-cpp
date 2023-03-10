@@ -80,6 +80,9 @@ Vec3 randomInUnitSphere();
 Vec3 randomInHemisphere(const Vec3& normal);
 
 //
+Vec3 randomInUnitDisk();
+
+//
 Vec3 randomUnitVector();
 
 //

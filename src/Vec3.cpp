@@ -193,6 +193,17 @@ Vec3 randomInHemisphere(const Vec3& normal)
 }
 
 //
+Vec3 randomInUnitDisk()
+{
+  while (true)
+  {
+    auto p{Vec3{RandomGen::getRandomDouble(-1, 1), RandomGen::getRandomDouble(-1, 1), 0}};
+    if (p.lengthSquared() < 1)
+      return p;
+  }
+}
+
+//
 Vec3 randomUnitVector()
 {
   return unitVector(randomInUnitSphere());
