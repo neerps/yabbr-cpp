@@ -2,14 +2,10 @@
 */
 #include "Camera.h"
 #include "Color.h"
-#include "Dielectric.h"
 #include "HittableList.h"
-#include "Lambertian.h"
-#include "Material.h"
-#include "Metal.h"
 #include "RandomGen.h"
 #include "Rtweekend.h"
-#include "Sphere.h"
+#include "Scene.h"
 
 #include <iostream>
 
@@ -17,32 +13,21 @@
 int main()
 {
   // Image
-  constexpr auto aspectRatio{16.0 / 9.0};
-  constexpr int imageWidth{400};
+  constexpr auto aspectRatio{3.0 / 2.0};
+  constexpr int imageWidth{1200};
   constexpr int imageHeight{static_cast<int>(imageWidth / aspectRatio)};
-  constexpr int samplesPerPixel{100};
+  constexpr int samplesPerPixel{500};
   constexpr int maxDepth{50};
 
   // World
-  HittableList world{};
-
-  auto materialGround{std::make_shared<Lambertian>(Color{0.8, 0.8, 0.0})};
-  auto materialCenter{std::make_shared<Lambertian>(Color{0.1, 0.2, 0.5})};
-  auto materialLeft{std::make_shared<Dielectric>(1.5)};
-  auto materialRight{std::make_shared<Metal>(Color{0.8, 0.6, 0.2}, 0.0)};
-
-  world.add(std::make_shared<Sphere>(Point3{0.0, -100.5, -1.0}, 100.0, materialGround));
-  world.add(std::make_shared<Sphere>(Point3{0.0, 0.0, -1.0}, 0.5, materialCenter));
-  world.add(std::make_shared<Sphere>(Point3{-1.0, 0.0, -1.0}, 0.5, materialLeft));
-  world.add(std::make_shared<Sphere>(Point3{-1.0, 0.0, -1.0}, -0.45, materialLeft));
-  world.add(std::make_shared<Sphere>(Point3{1.0, 0.0, -1.0}, 0.5, materialRight));
+  HittableList world{randomScene()};
 
   // Camera
-  Point3 lookFrom{3, 3, 2};
-  Point3 lookAt{0, 0, -1};
+  Point3 lookFrom{13, 2, 3};
+  Point3 lookAt{0, 0, 0};
   Vec3 vUp{0, 1, 0};
-  auto distToFocus{(lookFrom - lookAt).length()};
-  auto aperture{2.0};
+  auto distToFocus{10.0};
+  auto aperture{0.1};
   Camera cam{lookFrom, lookAt, vUp, 20, aspectRatio, aperture, distToFocus};
 
   // Render
