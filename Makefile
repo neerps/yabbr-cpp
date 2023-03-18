@@ -1,11 +1,11 @@
 CXX=/usr/bin/g++
-EXEC_NAME := raytracing_one
 
-BUILD_DIR := ./build
-SRC_DIRS := ./src
+BUILD_DIR ?= ./build
+SRC_DIR ?= ./src
+EXEC_NAME ?= raytracing_one
 
-SRCS := $(shell find "$(SRC_DIRS)" -name '*.cpp')
-INC_DIRS := $(shell find "$(SRC_DIRS)" -type d)
+SRCS := $(shell find "$(SRC_DIR)" -name '*.cpp')
+INC_DIRS := $(shell find "$(SRC_DIR)" -type d)
 
 INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 CPPFLAGS := $(INC_FLAGS)
