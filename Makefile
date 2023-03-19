@@ -16,6 +16,7 @@ CXXFLAGS := -o2\
 	-Wsign-conversion\
 	-Werror
 
+.DELETE_ON_ERROR:
 default: $(BUILD_DIR)/$(EXEC_NAME)
 $(BUILD_DIR)/$(EXEC_NAME):
 	mkdir -p $(dir $@)
