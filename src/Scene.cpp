@@ -5,7 +5,6 @@
 #include "Lambertian.h"
 #include "Material.h"
 #include "Metal.h"
-#include "Scene.h"
 #include "Sphere.h"
 #include "Rtweekend.h"
 

@@ -5,9 +5,11 @@
 #include "HittableList.h"
 #include "RandomGen.h"
 #include "Rtweekend.h"
-#include "Scene.h"
 
 #include <iostream>
+
+//
+HittableList randomScene();
 
 //
 int main()
