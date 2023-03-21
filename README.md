@@ -22,8 +22,10 @@ Unified initialisation where possible (and not forgotten), constexpr and inline 
 
 ## How to launch
 Use script in the top of the repository:
+
 ```sh
 chmod +x ./get_image.sh
 ./get_image.sh
 ```
+
 No specific parameters to pass for the moment.
