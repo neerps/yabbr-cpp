@@ -18,8 +18,8 @@ int main()
   constexpr auto aspectRatio{3.0 / 2.0};
   constexpr int imageWidth{1200};
   constexpr int imageHeight{static_cast<int>(imageWidth / aspectRatio)};
-  constexpr int samplesPerPixel{500}; // try 32
-  constexpr int maxDepth{50}; // try 8
+  constexpr int samplesPerPixel{500};
+  constexpr int maxDepth{50};
 
   // World
   HittableList world{randomScene()};
