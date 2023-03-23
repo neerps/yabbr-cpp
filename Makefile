@@ -2,12 +2,12 @@ CXX=/usr/bin/g++
 
 BUILD_DIR ?= ./build
 SRC_DIR ?= ./src
+INC_DIR ?= ./include
 EXEC_NAME ?= raytracing_one
 
 SRCS := $(shell find "$(SRC_DIR)" -name '*.cpp')
-INC_DIRS := $(shell find "$(SRC_DIR)" -type d)
 
-INC_FLAGS := $(addprefix -I,$(INC_DIRS))
+INC_FLAGS := $(addprefix -I,$(INC_DIR))
 CPPFLAGS := $(INC_FLAGS)
 CXXFLAGS := -o2\
 	-pedantic-errors\
