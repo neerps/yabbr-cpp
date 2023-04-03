@@ -4,12 +4,13 @@ BUILD_DIR ?= ./build
 SRC_DIR ?= ./src
 INC_DIR ?= ./include
 EXEC_NAME ?= raytracing_one
+DEBUG_FLAGS ?= -o2 -DNDEBUG
 
 SRCS := $(shell find "$(SRC_DIR)" -name '*.cpp')
 
 INC_FLAGS := $(addprefix -I,$(INC_DIR))
 CPPFLAGS := $(INC_FLAGS)
-CXXFLAGS := -o2\
+CXXFLAGS := $(DEBUG_FLAGS)\
 	-pedantic-errors\
 	-Wall -Weffc++\
 	-Wextra\
