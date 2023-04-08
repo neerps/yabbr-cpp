@@ -11,10 +11,10 @@
 #include "Rtweekend.h"
 #include "Sphere.h"
 
-#include <iostream>
+#include <fstream>
 
 //
-void writeColor(std::ostream& out, const Color& pixelColor, int samplesPerPixel)
+void writeColor(std::ofstream& out, const Color& pixelColor, int samplesPerPixel)
 {
   auto r{pixelColor.x()};
   auto g{pixelColor.y()};

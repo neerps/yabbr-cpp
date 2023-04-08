@@ -6,20 +6,22 @@
 #include "RandomGen.h"
 #include "Rtweekend.h"
 
+#include <fstream>
 #include <iostream>
+#include <string>
 
 //
 HittableList randomScene();
 
 //
-int main()
+int main(int argc, char* argv[])
 {
   // Image
   constexpr auto aspectRatio{3.0 / 2.0};
   constexpr int imageWidth{1200};
   constexpr int imageHeight{static_cast<int>(imageWidth / aspectRatio)};
-  constexpr int samplesPerPixel{500};
-  constexpr int maxDepth{50};
+  constexpr int samplesPerPixel{32};
+  constexpr int maxDepth{8};
 
   // World
   HittableList world{randomScene()};
@@ -32,12 +34,18 @@ int main()
   auto aperture{0.1};
   Camera cam{lookFrom, lookAt, vUp, 20, aspectRatio, aperture, distToFocus};
 
+  // Output
+  constexpr auto default_image_name{"default.ppm"};
+  std::string image_name{};
+  image_name = (argc == 1) ? default_image_name : std::string(argv[1]);
+  std::ofstream image_file{image_name};
+
   // Render
-  std::cout << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";
+  image_file << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";
 
   for (int j{imageHeight - 1}; j >= 0; --j)
   {
-    std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
+    std::cout << "\rScanlines remaining: " << j << ' ' << std::flush;
     for (int i{0}; i < imageWidth; ++i)
     {
       Color pixelColor{0, 0, 0};
@@ -48,10 +56,10 @@ int main()
         Ray r{cam.getRay(u, v)};
         pixelColor += rayColor(r, world, maxDepth);
       }
-      writeColor(std::cout, pixelColor, samplesPerPixel);
+      writeColor(image_file, pixelColor, samplesPerPixel);
     }
   }
-  std::cerr << "\nDone.\n";
+  std::cout << "\nDone.\n";
 
   return 0;
 }
