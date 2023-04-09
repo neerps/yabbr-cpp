@@ -49,7 +49,7 @@ commit_info="$(git describe --exact-match --tags 2>/dev/null\
   || git rev-parse --short="$printed_sha_length" HEAD)"
 image_name="${date_to_print}"."${branch_to_print}"."${commit_info}".ppm
 
-"${build_dir}"/"${exec_name}" > "${artifacts_dir}"/"${image_name}"
+"${build_dir}"/"${exec_name}" "${artifacts_dir}"/"${image_name}"
 
 if [[ -f "${artifacts_dir}"/"${image_name}" ]] ; then
   display "${artifacts_dir}"/"${image_name}" &

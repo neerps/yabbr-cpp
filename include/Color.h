@@ -5,10 +5,10 @@
 #include "RandomGen.h"
 #include "Rtweekend.h"
 
-#include <iostream>
+#include <fstream>
 
 //
-void writeColor(std::ostream& out, const Color& pixelColor, int samplesPerPixel);
+void writeColor(std::ofstream& out, const Color& pixelColor, int samplesPerPixel);
 
 //
 Color rayColor(const Ray& r, const Hittable& world, int depth);
