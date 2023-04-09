@@ -3,6 +3,8 @@
 ## Intro
 This is my version for the raytracer code from the book [_Ray Tracing in One Weekend_](https://raytracing.github.io/books/RayTracingInOneWeekend.html) by Peter Shirley.
 
+The whole idea was to practice more C++ on some meaningful project, but not to invent something new.
+
 As I am a novice in C++, most of the code foolows the book representation except some different parts and overall approach. More specifically:
 1. Mersenne Twister.
 2. Separation of interface and implementation.
