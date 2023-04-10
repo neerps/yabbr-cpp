@@ -38,10 +38,10 @@ int main(int argc, char* argv[])
   constexpr auto default_image_name{"default.ppm"};
   std::string image_name{};
   image_name = (argc == 1) ? default_image_name : std::string(argv[1]);
-  std::ofstream image_file{image_name};
+  std::ofstream imageFile{image_name};
 
   // Render
-  image_file << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";
+  imageFile << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";
 
   for (int j{imageHeight - 1}; j >= 0; --j)
   {
@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
         Ray r{cam.getRay(u, v)};
         pixelColor += rayColor(r, world, maxDepth);
       }
-      writeColor(image_file, pixelColor, samplesPerPixel);
+      writeColor(imageFile, pixelColor, samplesPerPixel);
     }
   }
   std::cout << "\nDone.\n";
