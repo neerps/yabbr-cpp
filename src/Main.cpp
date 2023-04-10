@@ -20,8 +20,8 @@ int main(int argc, char* argv[])
   constexpr auto aspectRatio{3.0 / 2.0};
   constexpr int imageWidth{1200};
   constexpr int imageHeight{static_cast<int>(imageWidth / aspectRatio)};
-  constexpr int samplesPerPixel{32};
-  constexpr int maxDepth{8};
+  constexpr int samplesPerPixel{64};
+  constexpr int maxDepth{16};
 
   // World
   HittableList world{randomScene()};
