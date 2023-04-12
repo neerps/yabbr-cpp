@@ -26,7 +26,7 @@ namespace RandomGen
     return std::mt19937_64{ss};
   }
 
-  inline std::mt19937_64 mt{init()};
+  inline thread_local std::mt19937_64 mt{init()};
 
   inline double getRandomDouble(double lower, double upper)
   {
