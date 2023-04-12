@@ -6,9 +6,13 @@
 #include "RandomGen.h"
 #include "Rtweekend.h"
 
+#include <algorithm>
+#include <array>
 #include <fstream>
+#include <execution>
 #include <iostream>
 #include <string>
+#include <vector>
 
 //
 HittableList randomScene();
@@ -41,24 +45,42 @@ int main(int argc, char* argv[])
   std::ofstream imageFile{image_name};
 
   // Render
+  std::vector<int> vericalIter(imageHeight);
+  for (int i{imageHeight}; i >= 0; --i)
+  {
+    vericalIter[static_cast<size_t>(i)] = (imageHeight - i);
+  }
+
+  std::vector<int> horizontalIter(imageWidth);
+  for (int i{0}; i < imageWidth; ++i)
+  {
+    horizontalIter[static_cast<size_t>(i)] = i;
+  }
+
   imageFile << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";
 
-  for (int j{imageHeight - 1}; j >= 0; --j)
-  {
-    std::cout << "\rScanlines remaining: " << j << ' ' << std::flush;
-    for (int i{0}; i < imageWidth; ++i)
-    {
-      Color pixelColor{0, 0, 0};
-      for (int s{0}; s < samplesPerPixel; ++s)
-      {
-        auto u{(i + RandomGen::getRandomDouble(0, 1)) / (imageWidth - 1)};
-        auto v{(j + RandomGen::getRandomDouble(0, 1)) / (imageHeight - 1)};
-        Ray r{cam.getRay(u, v)};
-        pixelColor += rayColor(r, world, maxDepth);
-      }
-      writeColor(imageFile, pixelColor, samplesPerPixel);
-    }
-  }
+  std::for_each(std::execution::par, vericalIter.begin(), vericalIter.end(), 
+                [&](auto j){
+                  std::cout << "\rScanlines remaining: " << j << ' ' << std::flush;
+                  std::array<Color, imageWidth> currentLine{};
+                  std::for_each(std::execution::par, horizontalIter.begin(), horizontalIter.end(),
+                  [&](auto i){
+                    Color pixelColor{0, 0, 0};
+                    for (int s{0}; s < samplesPerPixel; ++s)
+                    {
+                      auto u{(i + RandomGen::getRandomDouble(0, 1)) / (imageWidth - 1)};
+                      auto v{(j + RandomGen::getRandomDouble(0, 1)) / (imageHeight - 1)};
+                      Ray r{cam.getRay(u, v)};
+                      pixelColor += rayColor(r, world, maxDepth);
+                    }
+                    currentLine[static_cast<size_t>(i)] = pixelColor;
+                  });
+                  for (auto pixel : currentLine)
+                  {
+                    writeColor(imageFile, pixel, samplesPerPixel);
+                  }
+                });
+
   std::cout << "\nDone.\n";
 
   return 0;
