@@ -6,20 +6,28 @@
 #include "RandomGen.h"
 #include "Rtweekend.h"
 
+#include <algorithm>
+#include <array>
+#include <chrono>
+#include <ctime>
+#include <fstream>
+#include <execution>
 #include <iostream>
+#include <string>
+#include <vector>
 
 //
 HittableList randomScene();
 
 //
-int main()
+int main(int argc, char* argv[])
 {
   // Image
   constexpr auto aspectRatio{3.0 / 2.0};
   constexpr int imageWidth{1200};
   constexpr int imageHeight{static_cast<int>(imageWidth / aspectRatio)};
-  constexpr int samplesPerPixel{500};
-  constexpr int maxDepth{50};
+  constexpr int samplesPerPixel{64};
+  constexpr int maxDepth{16};
 
   // World
   HittableList world{randomScene()};
@@ -32,26 +40,60 @@ int main()
   auto aperture{0.1};
   Camera cam{lookFrom, lookAt, vUp, 20, aspectRatio, aperture, distToFocus};
 
-  // Render
-  std::cout << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";
+  // Output
+  constexpr auto default_image_name{"default.ppm"};
+  std::string image_name{};
+  image_name = (argc == 1) ? default_image_name : std::string(argv[1]);
+  std::ofstream imageFile{image_name};
 
-  for (int j{imageHeight - 1}; j >= 0; --j)
+  // Render
+  std::vector<int> vericalIter(imageHeight);
+  for (int i{imageHeight}; i >= 0; --i)
   {
-    std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
-    for (int i{0}; i < imageWidth; ++i)
-    {
-      Color pixelColor{0, 0, 0};
-      for (int s{0}; s < samplesPerPixel; ++s)
-      {
-        auto u{(i + RandomGen::getRandomDouble(0, 1)) / (imageWidth - 1)};
-        auto v{(j + RandomGen::getRandomDouble(0, 1)) / (imageHeight - 1)};
-        Ray r{cam.getRay(u, v)};
-        pixelColor += rayColor(r, world, maxDepth);
-      }
-      writeColor(std::cout, pixelColor, samplesPerPixel);
-    }
+    vericalIter[static_cast<size_t>(i)] = (imageHeight - i);
   }
-  std::cerr << "\nDone.\n";
+
+  std::vector<int> horizontalIter(imageWidth);
+  for (int i{0}; i < imageWidth; ++i)
+  {
+    horizontalIter[static_cast<size_t>(i)] = i;
+  }
+
+  auto startTime{std::chrono::system_clock::now()};
+
+  imageFile << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";
+
+  std::for_each(std::execution::par, vericalIter.begin(), vericalIter.end(), 
+                [&](auto j){
+                  std::cout << "\rScanlines remaining: " << j << ' ' << std::flush;
+                  std::array<Color, imageWidth> currentLine{};
+                  std::for_each(std::execution::par, horizontalIter.begin(), horizontalIter.end(),
+                  [&](auto i){
+                    Color pixelColor{0, 0, 0};
+                    for (int s{0}; s < samplesPerPixel; ++s)
+                    {
+                      auto u{(i + RandomGen::getRandomDouble(0, 1)) / (imageWidth - 1)};
+                      auto v{(j + RandomGen::getRandomDouble(0, 1)) / (imageHeight - 1)};
+                      Ray r{cam.getRay(u, v)};
+                      pixelColor += rayColor(r, world, maxDepth);
+                    }
+                    currentLine[static_cast<size_t>(i)] = pixelColor;
+                  });
+                  for (auto pixel : currentLine)
+                  {
+                    writeColor(imageFile, pixel, samplesPerPixel);
+                  }
+                });
+
+  std::cout << "\nDone.\n";
+
+  auto stopTime{std::chrono::system_clock::now()};
+  std::chrono::duration<double> elapsedTime{stopTime - startTime};
+  std::time_t endTime{std::chrono::system_clock::to_time_t(stopTime)};
+
+  std::cout << "Finished computation at " << std::ctime(&endTime)
+            << "elapsed time: " << elapsedTime.count() << "s"
+            << '\n';
 
   return 0;
 }
