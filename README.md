@@ -9,6 +9,7 @@ As I am a novice in C++, most of the code foolows the book representation except
 1. Mersenne Twister.
 2. Separation of interface and implementation.
 3. More modern C++.
+4. T.B.D.
 
 ## Differences compared to the book version
 ### Mersenne Twister
