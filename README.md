@@ -18,6 +18,13 @@ In any case, I tried to apply what I learned from [_learncpp_](https://www.learn
 ### Separation of interface and implementation
 Probably, again wasn't quite necessary for the application. But I decided to stick to the approach.
 
+### No output parameters
+Due to my experience with HDL, it's often easier for me to grasp pure functions with distinct inputs and outputs.
+
+### Attempt to use some multithreding, but in lazy way
+Used an idea from [here](https://youtu.be/46ddlUImiQA).
+Highly likely, I didn't gain much, as I write results to the file and suffer from disk access penalty anyway.
+
 ### More modern C++
 I tried to use current best practices, at least, those that I saw on [_learncpp_](https://www.learncpp.com/) and got used to.
 Unified initialisation where possible (and not forgotten), constexpr and inline constants in headers, etc.
@@ -30,4 +37,7 @@ chmod +x ./get_image.sh
 ./get_image.sh
 ```
 
-No specific parameters to pass for the moment.
+Usage:
+
+- d# - enable debug switches (yes/no).
+- h  - help.
