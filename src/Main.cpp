@@ -8,6 +8,8 @@
 
 #include <algorithm>
 #include <array>
+#include <chrono>
+#include <ctime>
 #include <fstream>
 #include <execution>
 #include <iostream>
@@ -57,6 +59,8 @@ int main(int argc, char* argv[])
     horizontalIter[static_cast<size_t>(i)] = i;
   }
 
+  auto startTime{std::chrono::system_clock::now()};
+
   imageFile << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";
 
   std::for_each(std::execution::par, vericalIter.begin(), vericalIter.end(), 
@@ -82,6 +86,14 @@ int main(int argc, char* argv[])
                 });
 
   std::cout << "\nDone.\n";
+
+  auto stopTime{std::chrono::system_clock::now()};
+  std::chrono::duration<double> elapsedTime{stopTime - startTime};
+  std::time_t endTime{std::chrono::system_clock::to_time_t(stopTime)};
+
+  std::cout << "Finished computation at " << std::ctime(&endTime)
+            << "elapsed time: " << elapsedTime.count() << "s"
+            << '\n';
 
   return 0;
 }
